@@ -1,4 +1,4 @@
-# iu7-networks-cp
+# iu7-networks-cp | thread pool + epoll()
 
 Написать классический статик сервер для отдачи контента с диска.
 
