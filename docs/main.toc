@@ -1,0 +1,25 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{ВВЕДЕНИЕ}{4}{table.caption.1}%
+\contentsline {section}{\numberline {1}Аналитическая часть}{6}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Протокол HTTP}{6}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Веб-серверы}{7}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Cокеты}{7}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Мультиплексирование ввода-вывода}{8}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Распараллеливание обработки входящих запросов}{10}{subsection.1.5}%
+\contentsline {section}{\numberline {2}Конструкторская часть}{11}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Сервер}{11}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Пул потоков}{13}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Технологическая часть}{14}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Средства реализации}{14}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Детали реализации}{14}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Сервер}{14}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Пул потоков}{18}{subsubsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.3}Поддерживаемые запросы}{23}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Cборка и развертывание}{23}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Исследовательская часть}{25}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Описание измерений}{25}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Результаты измерений}{27}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Выводы}{27}{subsection.4.3}%
+\contentsline {section}{ЗАКЛЮЧЕНИЕ}{29}{subsection.4.3}%
+\contentsline {section}{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}{30}{Item.8}%
+\contentsline {section}{ПРИЛОЖЕНИЕ A}{31}{Item.8}%

@@ -1,0 +1,15 @@
+version: "3.5"
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    cpus: 4
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d

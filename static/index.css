@@ -1,0 +1,24 @@
+body {
+    text-align: start;
+  }
+  
+  ul {
+    display: inline-block;
+  }
+  
+  h1 {
+    font-size: 50px;
+    font-family: "Arial";
+    color: bisque;
+  }
+  
+  h2 {
+    font-size: 40px;
+    font-family: "Arial";
+  }
+  
+  ul li a {
+    color: rgb(170, 29, 29);
+    font-size: 20px;
+    font-family: "Helvetica";
+  }

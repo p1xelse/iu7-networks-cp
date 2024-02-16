@@ -1,0 +1,76 @@
+%% The package is licenced under Creative Commons Attribution-ShareAlike
+%% 4.0 International (CC BY-SA 4.0)
+
+\ProvidesPackage{eqexpl}[2019/05/15 v. 1.1]
+\RequirePackage{etoolbox}
+\RequirePackage{xparse}
+\RequirePackage{calc}
+
+%% Spaces between elements
+\newlength{\eqexplSpaceWidth}
+\newcommand{\eqexplSetSpace}[1]{%
+  \setlength{\eqexplSpaceWidth}{\ifstrempty{#1}{2mm}{#1}}%
+}
+\eqexplSetSpace{}
+
+%% Width of 'intro' (typ. 'where')
+\newcommand{\eqexplSetIntro}[1]{%
+  \def\eqexplIntro{#1}%
+}
+\eqexplSetIntro{}
+
+%% Width of delimiter
+\newcommand{\eqexplSetDelim}[1]{%
+  \def\eqexplDelim{#1}%
+}
+\eqexplSetDelim{---}
+
+%% Width of item
+\newcommand{\eqexplSetItemWidth}[1]{%
+  \def\eqexplItemWidth{#1}%
+}
+\eqexplSetItemWidth{5mm}
+
+%% Align of item
+\newcommand{\eqexplSetItemAlign}[1]{%
+  \def\eqexplItemAlign{#1}%
+}
+\eqexplSetItemAlign{r}
+
+\newlength{\itemWidth}
+\newlength{\leftSideWidth}
+
+\newenvironment{eqexpl}[1][\eqexplItemWidth]{%
+  \let\olditem\item%
+  \setlength{\itemWidth}{#1}%
+  \setlength{\leftSideWidth}{\ifdefempty{\eqexplIntro}{}{\widthof{\eqexplIntro}+%
+                             \eqexplSpaceWidth+}%
+                             \itemWidth+%
+                             \eqexplSpaceWidth+%
+                             \widthof{\eqexplDelim}+%
+                             \eqexplSpaceWidth}%
+  \newtoggle{eqexplFirstItem}%
+  \toggletrue{eqexplFirstItem}%
+  \RenewDocumentCommand{\item}{ m O{\eqexplDelim}}{%
+    \olditem \makebox[\leftSideWidth]{%
+      \ifdefempty{\eqexplIntro}{}{
+        \makebox[\widthof{\eqexplIntro}][l]{\iftoggle{eqexplFirstItem}{\eqexplIntro}{}}%
+        \hspace{\eqexplSpaceWidth}%
+      }
+      \makebox[\itemWidth][\eqexplItemAlign]{##1}%
+      \hspace{\eqexplSpaceWidth}%
+      \makebox[\widthof{##2}][c]{##2}%
+      \hspace{\eqexplSpaceWidth}%
+    }%
+    \togglefalse{eqexplFirstItem}%
+    \ignorespaces% https://tex.stackexchange.com/a/44062
+  }%
+  \begin{list}{}{\setlength{\parsep}{0pt}%
+  \setlength{\topsep}{0pt}%
+  \setlength{\itemsep}{0pt}%
+  \setlength{\labelsep}{0pt}%
+  \setlength{\leftmargin}{\leftSideWidth}%
+  \setlength{\itemindent}{-\leftSideWidth}}}{%
+  \end{list}
+}
+\endinput

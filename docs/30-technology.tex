@@ -1,0 +1,191 @@
+\section{Технологическая часть}
+В данном разделе будут описаны детали реализации и развёртывания ПО, а также приведены листинги кода.
+\subsection{Средства реализации}
+Для реализации статического сервера был выбран язык C в соответствии
+с заданием на курсовую работу. Для мультиплексирования клиентских соединений был выбран мультиплексор epoll, для параллелизации обработки запросов -- пул потоков.
+Для контроля качества кода использовался отладчик использования памяти valgrind \cite{valgrind}, для отладки работы с потоками использовалась утилита helgrind\cite{helgrind}, входящая в valgrind.
+
+
+\subsection{Детали реализации}
+\subsubsection{Сервер}
+В листингах \ref{code:create} и \ref{code:loop} представлены функции, реализующие обработку клиентских запросов с использованием мультиплексора epoll.
+
+\begin{code}
+	\captionof{listing}{Функция создания серверного сокета.}
+	\label{code:create}
+	\inputminted
+	[
+	frame=single,
+	framerule=0.5pt,
+	framesep=20pt,
+	fontsize=\small,
+	tabsize=4,
+	linenos,
+	numbersep=5pt,
+	xleftmargin=10pt,
+	breaklines,
+	firstline=1, 
+	lastline=36, 
+	]
+	{text}
+	{code/epoll.c}
+\end{code}
+
+\newpage
+
+\begin{code}
+	\captionof{listing}{Функция, содержащая основной цикл сервера с обработкой соединений.}
+	\label{code:loop}
+	\inputminted
+	[
+	frame=single,
+	framerule=0.5pt,
+	framesep=20pt,
+	fontsize=\small,
+	tabsize=4,
+	linenos,
+	numbersep=5pt,
+	xleftmargin=10pt,
+	breaklines,
+	firstline=38, 
+	]
+	{text}
+	{code/epoll.c}
+\end{code}
+
+\subsubsection{Пул потоков}
+В листингах \ref{code:thpool1} - \ref{code:thpool3} представлены функции, реализующие пул потоков.
+
+\begin{code}
+	\captionof{listing}{Функция создания пула потоков.}
+	\label{code:thpool1}
+	\inputminted
+	[
+	frame=single,
+	framerule=0.5pt,
+	framesep=20pt,
+	fontsize=\small,
+	tabsize=4,
+	linenos,
+	numbersep=5pt,
+	xleftmargin=10pt,
+	breaklines,
+	firstline=1, 
+	lastline=52, 
+	]
+	{text}
+	{code/thpool.c}
+\end{code}
+
+\begin{code}
+	\captionof{listing}{Функция добавления задачи в очередь на выполнение.}
+	\label{code:thpool2}
+	\inputminted
+	[
+	frame=single,
+	framerule=0.5pt,
+	framesep=20pt,
+	fontsize=\small,
+	tabsize=4,
+	linenos,
+	numbersep=5pt,
+	xleftmargin=10pt,
+	breaklines,
+	firstline=54, 
+	lastline=102, 
+	]
+	{text}
+	{code/thpool.c}
+\end{code}
+
+\begin{code}
+	\captionof{listing}{Функция обработки очереди задач.}
+	\label{code:thpool3}
+	\inputminted
+	[
+	frame=single,
+	framerule=0.5pt,
+	framesep=20pt,
+	fontsize=\small,
+	tabsize=4,
+	linenos,
+	numbersep=5pt,
+	xleftmargin=10pt,
+	breaklines,
+	firstline=149, 
+	lastline=188, 
+	]
+	{text}
+	{code/thpool.c}
+\end{code}
+
+\subsection{Поддерживаемые запросы}
+Разработанный веб-сервер обрабатывает запросы GET и HEAD. В первом
+случае клиент получает в теле ответа запрошенный файл, во втором — только
+заголовки ответа Content-Type и Content-Length. Ниже перечислены поддерживаемые статусы ответов сервера.
+\begin{itemize}[label*=---]
+	\item 200 --- успешное завершение обработки запроса.
+	\item 403 --- доступ к запрошенному файлу запрещён.
+	\item 404 --- запрашиваемый файл не найден.
+	\item 405 --- неподдерживаемый HTTP-метод (POST, PUT и т.д.).
+	\item 500 --- внутренняя ошибка сервера.
+\end{itemize}
+
+Разработанный сервер поддерживает следующие форматы файлов (типы контента, Content-Type):
+
+\begin{itemize}[label*=---]
+	\item html (text/html);
+	\item css (text/css);
+	\item js (text/javascript);
+	\item png (image/png);
+	\item jpg (image/jpg);
+	\item jpeg (image/jpe);
+	\item gif (image/gif);
+	\item svg (image/svg);
+	\item swf (application/x-shockwave-flash);
+\end{itemize}
+
+\subsection{Cборка и развертывание}
+Запуск разработанного приложения осуществлялся с помощью системы
+контейнеризации Docker. Файл для сборки образа приложения представлен
+в листинге \ref{code:dockerfile}, файл docker-compose для развертывания в листингке \ref{code:compose}.
+\newpage
+\begin{code}
+	\captionof{listing}{Dockerfile образа приложения.}
+	\label{code:dockerfile}
+	\inputminted
+	[
+	frame=single,
+	framerule=0.5pt,
+	framesep=20pt,
+	fontsize=\small,
+	tabsize=4,
+	linenos,
+	numbersep=5pt,
+	xleftmargin=10pt,
+	breaklines,
+	]
+	{text}
+	{code/Dockerfile}
+\end{code}
+
+\begin{code}
+	\captionof{listing}{docker-compose файл для развертывания приложения.}
+	\label{code:compose}
+	\inputminted
+	[
+	frame=single,
+	framerule=0.5pt,
+	framesep=20pt,
+	fontsize=\small,
+	tabsize=4,
+	linenos,
+	numbersep=5pt,
+	xleftmargin=10pt,
+	breaklines,
+	]
+	{text}
+	{code/docker-compose.yml}
+\end{code}
+
+\pagebreak

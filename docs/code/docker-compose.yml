@@ -1,0 +1,13 @@
+version: "3.5"
+services:
+  app:
+    build: .
+    container_name: app
+    restart: always
+    cpus: 4
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - "8083:8080"
